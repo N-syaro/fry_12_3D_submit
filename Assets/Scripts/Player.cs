@@ -11,11 +11,18 @@ public class Player : MonoBehaviour
     [SerializeField] float groundNormalYMin = 0.7f;
     [SerializeField] float groundDamping = 8f;
     [SerializeField] float airDamping = 0.5f;
+    [SerializeField] GameObject firePrefab;
+    [SerializeField] float fireSpeed;
+    [SerializeField] Vector3 fireOffset;
+    [SerializeField] int hp = 10;
+    [SerializeField] float invincibleTimeMax = 0.5f;
+    [SerializeField] float knockbackSpeed = 5;
 
     PlayerInput playerInput;
     Rigidbody rb;
     Vector3 rotateTarget;
     bool isGrounded = true;
+    float invincibleTime = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -91,6 +98,25 @@ public class Player : MonoBehaviour
             Vector3 jumpVec = new Vector3(0, jumpSpeed, 0);
             rb.AddForce(jumpVec, ForceMode.VelocityChange);
         }
+
+        // 攻撃
+        if (playerInput.actions["Attack"].WasPressedThisFrame())
+        {
+            var position = transform.position + transform.TransformVector(fireOffset);
+            var fireObj = Object.Instantiate(firePrefab, position, transform.rotation);
+            var fireRB = fireObj.GetComponent<Rigidbody>();
+            if (fireRB != null)
+            {
+                fireRB.linearVelocity = transform.forward * fireSpeed;
+            }
+        }
+
+
+        // 無敵時間を減らす
+        if (invincibleTime > 0)
+        {
+            invincibleTime -= Time.deltaTime;
+        }
     }
 
     private void OnCollisionStay(Collision collision)
@@ -101,6 +127,23 @@ public class Player : MonoBehaviour
             {
                 isGrounded = true;
             }
+        }
+
+        var attackObj = collision.gameObject.GetComponent<AttackObject>();
+        if (attackObj != null && invincibleTime <= 0)
+        {
+            hp -= attackObj.power;
+            invincibleTime = invincibleTimeMax;
+            if (hp <= 0)
+            {
+                Destroy(gameObject);
+            }
+
+            // ノックバック
+            var dir = transform.position - collision.transform.position;
+            dir.y = 0;
+            var knockbackVec = dir.normalized * knockbackSpeed;
+            rb.AddForce(knockbackVec, ForceMode.VelocityChange);
         }
     }
 }
