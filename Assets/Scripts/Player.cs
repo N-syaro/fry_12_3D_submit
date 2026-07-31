@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -17,7 +18,9 @@ public class Player : MonoBehaviour
     [SerializeField] int hp = 10;
     [SerializeField] float invincibleTimeMax = 0.5f;
     [SerializeField] float knockbackSpeed = 5;
-
+    [SerializeField] Slider HpBer;
+    [SerializeField] GameObject LosePanel;
+    private int currentHp;
     PlayerInput playerInput;
     Rigidbody rb;
     Vector3 rotateTarget;
@@ -30,6 +33,9 @@ public class Player : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         rb = GetComponent<Rigidbody>();
         rb.sleepThreshold = -1;
+        currentHp = hp;
+        LosePanel.SetActive(false);
+        hpUpdate();
     }
 
     private void FixedUpdate()
@@ -133,9 +139,13 @@ public class Player : MonoBehaviour
         if (attackObj != null && invincibleTime <= 0)
         {
             hp -= attackObj.power;
+            currentHp -= attackObj.power;
+            hpUpdate();
+            currentHp = Mathf.Clamp(currentHp, 0, hp);
             invincibleTime = invincibleTimeMax;
             if (hp <= 0)
             {
+                LosePanel.SetActive(true);
                 Destroy(gameObject);
             }
 
@@ -145,5 +155,10 @@ public class Player : MonoBehaviour
             var knockbackVec = dir.normalized * knockbackSpeed;
             rb.AddForce(knockbackVec, ForceMode.VelocityChange);
         }
+    }
+
+    private void hpUpdate()
+    {
+        HpBer.value = currentHp;
     }
 }

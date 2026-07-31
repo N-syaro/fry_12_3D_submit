@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] int hp = 2;
     [SerializeField] float invincibleTimeMax = 0.5f;
     [SerializeField] float knockbackSpeed = 5;
-
+    
     Rigidbody rb;
     float invincibleTime = 0;
 
@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        
         rb = GetComponent<Rigidbody>();
     }
 
@@ -65,6 +66,7 @@ public class Enemy : MonoBehaviour
             invincibleTime = invincibleTimeMax;
             if (hp <= 0)
             {
+               
                 Destroy(gameObject);
             }
 
