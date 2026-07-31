@@ -22495,9 +22495,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2350652681907635850, guid: 83628a2e699576147adabb30587f44d4, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1642013320}
-    - targetCorrespondingSourceObject: {fileID: 2350652681907635850, guid: 83628a2e699576147adabb30587f44d4, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1642013319}
     - targetCorrespondingSourceObject: {fileID: 2350652681907635850, guid: 83628a2e699576147adabb30587f44d4, type: 3}
       insertIndex: -1
@@ -23998,33 +23995,6 @@ MonoBehaviour:
   m_DefaultActionMap: 
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 330585545}
---- !u!114 &1642013320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1642013317}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07bd32d8c746e9a47aa64f32c64879ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Player
-  speedMax: 0
-  accel: 0
-  rotateSpeed: 0
-  animator: {fileID: 271071144}
-  jumpSpeed: 0
-  groundNormalYMin: 0.7
-  groundDamping: 8
-  airDamping: 0.5
-  firePrefab: {fileID: 4818970324401746577, guid: 59c516dceb031b64ba6cb9cd59bb41f0, type: 3}
-  fireSpeed: 0
-  fireOffset: {x: 0, y: 0, z: 0}
-  hp: 10
-  invincibleTimeMax: 0.5
-  knockbackSpeed: 5
-  HpBer: {fileID: 853872219}
 --- !u!54 &1642013321
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -24102,6 +24072,7 @@ MonoBehaviour:
   invincibleTimeMax: 0.5
   knockbackSpeed: 5
   HpBer: {fileID: 853872219}
+  LosePanel: {fileID: 2135768174}
 --- !u!1001 &1644934531
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29337,7 +29308,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0005493164, y: 0.00019836}
+  m_AnchoredPosition: {x: 0.0005493164, y: 0.00019836426}
   m_SizeDelta: {x: -509.53, y: -185.05}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2135768176
